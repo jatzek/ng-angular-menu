@@ -1,0 +1,29 @@
+{
+  "name": "ng-angular-menu",
+  "authors": [
+    "Jacek Chudziński <chudzinskijacek@gmail.com>"
+  ],
+  "description": "menu builder for angular, based on configs instead of templates",
+  "main": "netgenes.ng-menu.js",
+  "moduleType": [],
+  "keywords": [
+    "menu",
+    "context",
+    "angular",
+    "builder",
+    "provider"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0"
+  }
+}

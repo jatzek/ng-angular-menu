@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Builder Examples</title>
+</head>
+<body ng-app="app" role="application">
+
+<div ng-controller="DemoController">
+    <ul>
+        <li ng-repeat="card in cards">
+            {{ card.name}}
+            <span aria-haspopup="true" popup-menu="'demo_menu'" role="button">...</span>
+        </li>
+    </ul>
+</div>
+
+<div ng-controller="MonitorController">
+    <ul>
+        <li ng-repeat="monit in monits">standard action `{{ monit.action}}` called for `{{ monit.source}}`</li>
+    </ul>
+</div>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="netgenes.ng-menu.js"></script>
+<script src="examples.js"></script>
+</body>
+</html>
