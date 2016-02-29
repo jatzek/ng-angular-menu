@@ -39,3 +39,19 @@
     cursor: default;
     color: #666;
 }
+
+/*
+    submenu
+*/
+li.submenu {
+    position: relative;
+}
+li.submenu ul {
+    display: none;
+}
+li.submenu:hover ul {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 98%;
+}

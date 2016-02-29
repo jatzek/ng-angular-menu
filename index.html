@@ -21,6 +21,14 @@
     <p class="demo-section">
         <a href="#" popup-menu="'demo_menu3'">show menu</a>
     </p>
+    <!--// Nested Menu Example //-->
+    <h2>Nested Menu Example</h2>
+    <p>You can simply create sub menus</p>
+    <p class="demo-section">
+        <a href="#" popup-menu="'demo_menu4'">show menu</a>
+    </p>
+    <!----------------------------->
+
     <h2>Popup Menu</h2>
     <p>Simple menu binding with trigger</p>
     <ul class="demo-section" id="example1">
@@ -46,7 +54,15 @@
 </aside>
 
 <script src="bower_components/angular/angular.js"></script>
-<script src="netgenes.ng-menu.js"></script>
+<script src="src/module.js"></script>
+<script src="src/behaviors/context-menu.js"></script>
+<script src="src/behaviors/popup-menu.js"></script>
+<script src="src/elements/backdrop.js"></script>
+<script src="src/behaviors/common.js"></script>
+<script src="src/elements/inline-menu.js"></script>
+<script src="src/elements/menu.js"></script>
+<script src="src/providers/menu-builder.js"></script>
+
 <script src="examples.js"></script>
 </body>
 </html>

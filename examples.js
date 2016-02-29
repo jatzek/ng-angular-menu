@@ -74,6 +74,18 @@ angular
                 ]
 
             })
+            .registerMenuDefinition('demo_menu4', {
+                items : [
+                    'item1',
+                    'item2',
+                    'item3',
+                    {
+                        text : 'Set type',
+                        menu : 'demo_menu3'
+                    }
+                ]
+
+            })
             .registerMenuDefinition('demo_menu3', {
                 itemSrc : 'types',
                 itemDef : {
