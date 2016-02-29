@@ -3,8 +3,7 @@
  */
 angular
     .module('netgenes.ng-angular-menu')
-    .directive('ngMenu', function() {
-        var i = 0;
+    .directive('ngMenu', function($timeout) {
         return {
             replace : true,
             restrict : 'E',
@@ -20,9 +19,8 @@ angular
             scope : {
             },
             link : function($scope, $element, $attributes) {
-                console.log('link',++i);
 
-                console.log($scope);
+
                 $scope.$applyAsync(function () {
 
                     if ($attributes.src) {
@@ -33,6 +31,10 @@ angular
 
                         $scope.$menu = $scope.$parent.menu;
                     }
+
+                    $timeout(function() {
+                        //console.log($element[0].getBoundingClientRect());
+                    });
 
                     $scope.$watch('$menu.active', function( n ) {
 
