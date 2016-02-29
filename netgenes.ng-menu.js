@@ -4,6 +4,47 @@
 
 (function (angular) {
 
+
+    function triggeredMenuLink ( attributeName, eventToCatch, positionBuilder ) {
+
+        return function ( menuBuilder, $injector, $compile ) {
+
+            return function( $scope, $element, $attributes ) {
+
+                function addBackdrop( ) {
+
+                    var backdropElement = angular.element('<menu-backdrop></menu-backdrop>');
+
+                    $compile(backdropElement)($scope);
+                    angular.element(document.body).append(backdropElement);
+                    return backdropElement;
+                }
+
+                $element.on(eventToCatch, function( $event ) {
+
+                    var menuName, menuObject, menuElement, nScope, backdrop;
+                    $event.preventDefault();
+
+                    menuName = $scope.$eval($attributes[attributeName]);
+                    menuObject = menuBuilder.build( menuName, $scope );
+                    menuElement = angular.element('<ng-menu></ng-menu>');
+
+                    nScope = $scope.$root.$new();
+                    nScope.menu = menuObject;
+
+                    $compile(menuElement)(nScope);
+
+                    backdrop = addBackdrop();
+                    backdrop.append( menuElement );
+
+                    menuElement.css( positionBuilder( $event ));
+
+                    angular.element(document.body).append(backdrop);
+                });
+            }
+        }
+    }
+
     angular
         .module('netgenes.ng-angular-menu', ['ng'])
         .provider('menuBuilder', function () {
@@ -148,7 +189,7 @@
                 replace : true,
                 restrict : 'E',
                 template :
-                    '<ul>' +
+                    '<ul class="ng-menu">' +
                     '   <li ng-repeat="item in $menu.items track by $index" ng-click="item.onClick($event)">{{ item.text }}</li>' +
                     '</ul>',
                 link : function($scope, $element) {
@@ -166,27 +207,61 @@
                 }
             }
         })
+        .directive('menuBackdrop', function() {
+
+            return {
+                restrict : 'E',
+                replace : true,
+                template : '<div class="menu-backdrop" ng-click="backdropCtrl.close($event)"></div>',
+                controllerAs : 'backdropCtrl',
+                controller : function( $scope, $element ) {
+
+                    this.close = function( $event ) {
+                        $event.preventDefault();
+                        $element.remove();
+                    };
+                }
+            }
+        })
         .directive('popupMenu', function( menuBuilder, $injector, $compile ) {
 
             return {
                 restrict: 'A',
-                link : function( $scope, $element, $attributes ) {
+                link : triggeredMenuLink('popupMenu','click',function  positionBuilder($event) {
+                    var target, top, left;
 
-                    $element.on('click', function( $event ) {
+                    target = $event.target;
+                    top = target.offsetTop - target.offsetHeight;
+                    left = target.offsetLeft - target.offsetWidth;
 
-                        $event.preventDefault();
+                    return {
+                        position : 'absolute',
+                        top : top + 'px',
+                        left : left + 'px'
+                    };
+                })(menuBuilder,$injector,$compile)
+            }
+        })
+        .directive('contextMenu', function( menuBuilder, $injector, $compile ) {
+            return {
+                restrict : 'A',
+                link : triggeredMenuLink('contextMenu','contextmenu',function  positionBuilder($event) {
+                    var  top, left;
+                    console.log($event);
+                    top = $event.y - 16;
+                    left = $event.x - 16;
 
-                        var menuName = $scope.$eval($attributes.popupMenu);
-                        var menuObject = menuBuilder.build( menuName, $scope );
-
-                        var menuElement = angular.element('<ng-menu></ng-menu>');
-                        var nScope = $scope.$root.$new();
-                        nScope.menu = menuObject;
-                        $compile(menuElement)(nScope);
-
-                        angular.element(document.body).append(menuElement);
-                    });
-                }
+                    return {
+                        position : 'absolute',
+                        top : top + 'px',
+                        left : left + 'px'
+                    };
+                })(menuBuilder,$injector,$compile)
+            }
+        })
+        .directive('inlineMenu', function( menuBuilder, $injector, $compile ) {
+            return {
+                restrict : 'E'
             }
         });
 
