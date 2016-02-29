@@ -32,3 +32,10 @@
 .ng-menu li:last-child {
     border: none;
 }
+.ng-menu li.disable,
+.ng-menu li.disable:hover,
+.ng-menu li.disable:active {
+    background-color: white;
+    cursor: default;
+    color: #666;
+}

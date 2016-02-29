@@ -16,7 +16,7 @@ angular
 
                 text : function( $source ) {
 
-                    return 'Subscribe ' + $source.name;
+                    return 'Subscribe "' + $source.name + '"';
                 },
                 action : 'demo:subscribe'
             })
@@ -31,7 +31,32 @@ angular
                     }
                 }
             })
-            .registerMenuDefinition('demo_menu', {
+            .registerItemDefinition('disable_fixed', {
+                text : 'Disable all the time',
+                disable : true,
+                action: 'demo:should-not-execute'
+            })
+            .registerItemDefinition('disable_responsive', {
+                text : 'Use checkbox to toggle me',
+                action : 'demo:clicked-when-enable',
+                disable : function( $source ) {
+
+                    return !$source.isActiveItem;
+                }
+            })
+            .registerItemDefinition('item1', {
+                text : 'Standard item 1',
+                action : 'demo:standard-action-1'
+            })
+            .registerItemDefinition('item2', {
+                text : 'Standard item 2',
+                action : 'demo:standard-action-3'
+            })
+            .registerItemDefinition('item3', {
+                text : 'Standard item 3',
+                action : 'demo:standard-action-3'
+            })
+            .registerMenuDefinition('demo_menu1', {
                 path : 'card',
                 items : [
                     'demo_like',
@@ -39,14 +64,42 @@ angular
                     'demo_delete'
                 ]
             })
+            .registerMenuDefinition('demo_menu2', {
+                items : [
+                    'disable_fixed',
+                    'disable_responsive',
+                    'item1',
+                    'item2',
+                    'item3'
+                ]
+
+            })
+            .registerMenuDefinition('demo_menu3', {
+                itemSrc : 'types',
+                itemDef : {
+                    action : 'demo:set-type',
+                    text : function ($itemSource) { return $itemSource.name }
+                },
+                actionHandler: function( $action, $source, $itemSource, $rootScope ) {
+
+                    $rootScope.$broadcast('menu-action','dynamic',$action, $itemSource);
+                }
+            })
             .setDefaultActionHandlerFactory(function( $rootScope ) {
 
                 return function ( $action, $source ) {
 
-                    $rootScope.$broadcast('menu-action',$action,$source);
+                    $rootScope.$broadcast('menu-action','static',$action,$source);
                 }
             });
     })
+    .constant('types', [
+        { id : 1, name : 'Type 1'},
+        { id : 2, name : 'Type 2'},
+        { id : 3, name : 'Type 3'},
+        { id : 4, name : 'Type 4'},
+        { id : 5, name : 'Type 5'}
+    ])
     .controller('DemoController', function( $scope ) {
 
         $scope.cards = [
@@ -81,8 +134,16 @@ angular
 
         $scope.monits = [];
 
-        $scope.$on('menu-action', function($event,$action,$source) {
+        $scope.$on('menu-action', function($event,type,$action,$source) {
 
-            $scope.monits.push({action:$action,source:$source.name});
+
+            if (type === 'static') {
+
+                $scope.monits.push({action:$action,source:$source.name});
+
+            } else if ( type == 'dynamic') {
+
+                $scope.monits.push({action:$action,source:$source.name});
+            }
         });
     });

@@ -11,18 +11,28 @@
 <section id="examples-container" ng-controller="DemoController">
     <h1>Menu Examples</h1>
 
+    <h2>Disable Example</h2>
+    <p>Disable state can be simple managed by factory</p>
+    <p class="demo-section" ng-init="isActiveItem = false">
+        <input type="checkbox" ng-model="isActiveItem" /> <a href="#" popup-menu="'demo_menu2'">show menu</a>
+    </p>
+    <h2>Dynamic Example</h2>
+    <p>Items based on external services</p>
+    <p class="demo-section">
+        <a href="#" popup-menu="'demo_menu3'">show menu</a>
+    </p>
     <h2>Popup Menu</h2>
     <p>Simple menu binding with trigger</p>
     <ul class="demo-section" id="example1">
         <li ng-repeat="card in cards">
             {{ card.name}}
-            <span aria-haspopup="true" popup-menu="'demo_menu'" role="button" class="menu-trigger">...</span>
+            <span aria-haspopup="true" popup-menu="'demo_menu1'" role="button" class="menu-trigger">...</span>
         </li>
     </ul>
     <h2>Context Menu</h2>
     <p>Simple Context Menu</p>
     <ul class="demo-section" id="example2">
-        <li ng-repeat="card in cards"  context-menu="'demo_menu'">
+        <li ng-repeat="card in cards"  context-menu="'demo_menu1'">
             {{ card.name}}
         </li>
     </ul>

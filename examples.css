@@ -9,12 +9,15 @@ body {
 #examples-container {
     flex:1;
     border-right: 2px #ccc solid;
+    overflow-y: auto;
 }
-
-#example1 {
-    list-style: none;
+.demo-section {
     padding: 40px;
     background-color: #fafafb;
+}
+#example1, #example2 {
+    list-style: none;
+
 }
 #example1 li {
     background-color: white;
@@ -22,6 +25,20 @@ body {
     padding: 16px;
     margin: 8px 0;
 
+}
+#example2 li {
+    background-color: white;
+    box-shadow: #cccccc 0 0 3px;
+    padding: 8px;
+    margin: 0;
+    cursor: pointer;
+    border-bottom: #eeeeee 1px solid;
+}
+#example2 li:hover {
+    background-color: #eeeeee;
+}
+#example2 li:last-child {
+    border: none;
 }
 .menu-trigger {
     display: inline-block;

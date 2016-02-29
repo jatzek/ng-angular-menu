@@ -22,8 +22,10 @@
 
                 $element.on(eventToCatch, function( $event ) {
 
-                    var menuName, menuObject, menuElement, nScope, backdrop;
+                    var menuName, menuObject, menuElement, nScope, backdrop, anchor;
                     $event.preventDefault();
+
+                    anchor = $attributes.anchor || 'left:top';
 
                     menuName = $scope.$eval($attributes[attributeName]);
                     menuObject = menuBuilder.build( menuName, $scope );
@@ -37,9 +39,9 @@
                     backdrop = addBackdrop();
                     backdrop.append( menuElement );
 
-                    menuElement.css( positionBuilder( $event ));
-
                     angular.element(document.body).append(backdrop);
+
+                    menuElement.css( positionBuilder( $event, menuElement, anchor ));
                 });
             }
         }
@@ -60,36 +62,48 @@
                 action : null,
                 menu: null,
                 path : null,
-                active: true
+                active: true,
+                disable: false
             };
 
             var defaultMenuDefinition = {
                 path : null,
-                items : []
+                items : [],
+                itemSrc : null,
+                itemDef : null
             };
 
-            function MenuBuilder( $injector, $rootScope ) {
+            function MenuBuilder( $injector ) {
 
-                function Item( $scope, def, menu ) {
+                function Item( $scope, def, menu, itemSrc ) {
 
                     if ( angular.isString( def ) ) {
 
                         def = items[def];
                     }
+
+                    def = Object.assign({},defaultActionHandler,def);
+
                     var self = this;
                     var actionHandler = menu.getActionsHandler();
                     var path = def.path || menu.path;
+                    var itemSource = itemSrc || null;
                     var source = path ? $scope.$eval( path ) : $scope;
                     var locals = {
 
                         $scope : $scope,
-                        $source : source
+                        $source : source,
+                        $itemSource : itemSource
                     };
 
                     this.text = angular.isFunction( def.text ) ? $injector.invoke(def.text,self,locals) : def.text;
+                    this.disable = angular.isFunction( def.disable) ? $injector.invoke(def.disable,self,locals) : def.disable;
 
                     this.onClick = function( $event ) {
 
+                        if (self.disable) {
+                            return;
+                        }
                         if (angular.isString(def.action)) {
 
                             $injector.invoke(actionHandler, self,  Object.assign({$action:def.action},locals));
@@ -116,11 +130,25 @@
                     };
 
                     function _construct() {
-                        Object.assign( self, defaultMenuDefinition, def );
-                        self.items = def.items.map(function( def ) {
 
-                            return new Item($scope,def,self);
-                        });
+                        Object.assign( self, defaultMenuDefinition, def );
+
+                        if (def.items && def.items.length) {
+
+                            self.items = def.items.map(function( def ) {
+
+                                return new Item($scope, def ,self);
+                            });
+                        }
+                        else if (def.itemSrc && def.itemDef) {
+
+                            var itemSrc = $injector.get(def.itemSrc);
+                            self.items = itemSrc.map(function( src ) {
+
+                                return new Item($scope, def.itemDef, self, src);
+                            });
+                        }
+
                     }
                     _construct();
                 }
@@ -190,7 +218,7 @@
                 restrict : 'E',
                 template :
                     '<ul class="ng-menu">' +
-                    '   <li ng-repeat="item in $menu.items track by $index" ng-click="item.onClick($event)">{{ item.text }}</li>' +
+                    '   <li ng-class="{ disable : item.disable }" ng-repeat="item in $menu.items track by $index" ng-click="item.onClick($event)">{{ item.text }}</li>' +
                     '</ul>',
                 link : function($scope, $element) {
 
@@ -227,18 +255,29 @@
 
             return {
                 restrict: 'A',
-                link : triggeredMenuLink('popupMenu','click',function  positionBuilder($event) {
-                    var target, top, left;
+                link : triggeredMenuLink('popupMenu','click',function  positionBuilder($event, menuEl, anchor ) {
+                    var target, x,y, style, h, v, r, m;
+
+                    r = /^(left|right):(top|bottom)$/;
+                    if (!r.test(anchor)) {
+                        return Error('anchor value must match '+ r.toString());
+                    }
+                    m = r.exec(anchor);
+                    h = m[1];
+                    v = m[2];
 
                     target = $event.target;
-                    top = target.offsetTop - target.offsetHeight;
-                    left = target.offsetLeft - target.offsetWidth;
+                    y = target.offsetTop;
+                    x = target.offsetLeft;
 
-                    return {
+                    style =  {
                         position : 'absolute',
-                        top : top + 'px',
-                        left : left + 'px'
                     };
+                    style[h] = x + 'px';
+                    style[v] = y + 'px';
+
+                    return style;
+
                 })(menuBuilder,$injector,$compile)
             }
         })
@@ -247,11 +286,11 @@
                 restrict : 'A',
                 link : triggeredMenuLink('contextMenu','contextmenu',function  positionBuilder($event) {
                     var  top, left;
-                    console.log($event);
                     top = $event.y - 16;
                     left = $event.x - 16;
 
                     return {
+
                         position : 'absolute',
                         top : top + 'px',
                         left : left + 'px'
