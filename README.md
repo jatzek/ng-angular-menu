@@ -36,7 +36,7 @@ angular.module('app',['netgenes.ng-angular-menu'])
                 path: 'row' // means 'path.in.scope.to.the.source',
                 items : [
                     'item1',
-                    'item2,
+                    'item2',
                     {
                         text : 'Extra inline Item',
                         action : 'action:name'
