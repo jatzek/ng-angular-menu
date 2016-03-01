@@ -43,7 +43,7 @@ module.exports = function(grunt) {
         cssmin : {
             release : {
                 files : {
-                    'dist/<%= pkg.name %>.min.css' : ['netgenes.ng-menu.css']
+                    'dist/<%= pkg.name %>.min.css' : ['src/style.css']
                 }
             }
         }
