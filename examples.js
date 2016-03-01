@@ -3,69 +3,70 @@
  */
 
 angular
-    .module('app',['netgenes.ng-angular-menu'])
-    .config(function( menuBuilderProvider ) {
+    .module('app', ['netgenes.ng-angular-menu'])
+    .config(function (menuBuilderProvider) {
 
         menuBuilderProvider
-            .registerItemDefinition('demo_like',{
+            .addItems(
+                {
+                    'demo_like': {
+                        text: 'Like it',
+                        action: 'demo:like'
+                    },
+                    demo_subscribe: {
+                        text: function ($source) {
 
-                text : 'Like it',
-                action : 'demo:like'
-            })
-            .registerItemDefinition('demo_subscribe', {
+                            return 'Subscribe "' + $source.name + '"';
+                        },
+                        action: 'demo:subscribe'
+                    },
+                    demo_delete: {
+                        text: 'Delete It',
+                        action: function ($source, $scope) {
 
-                text : function( $source ) {
+                            if (confirm('Are you sure want to delete `' + $source.name + '`')) {
 
-                    return 'Subscribe "' + $source.name + '"';
-                },
-                action : 'demo:subscribe'
-            })
-            .registerItemDefinition('demo_delete', {
+                                $scope.cards.splice($scope.cards.indexOf($source), 1);
+                            }
+                        }
+                    },
+                    disable_fixed: {
+                        text: 'Constantly disabled',
+                        disable: true,
+                        action: 'demo:should-not-execute'
+                    },
+                    disable_responsive: {
+                        text: 'Use checkbox to toggle me',
+                        action: 'demo:clicked-when-enable',
+                        disable: function ($source) {
 
-                text : 'Delete It',
-                action : function ( $source, $scope ) {
-
-                    if ( confirm('Are you sure want to delete `' +  $source.name + '`') ) {
-
-                        $scope.cards.splice( $scope.cards.indexOf( $source ),1);
+                            return !$source.isActiveItem;
+                        }
+                    },
+                    item1: {
+                        text: 'Standard item 1',
+                        action: 'demo:standard-action-1'
+                    },
+                    item2: {
+                        text: 'Standard item 2',
+                        action: 'demo:standard-action-3'
+                    },
+                    item3 :  {
+                        text: 'Standard item 3',
+                        action: 'demo:standard-action-3'
                     }
                 }
-            })
-            .registerItemDefinition('disable_fixed', {
-                text : 'Disable all the time',
-                disable : true,
-                action: 'demo:should-not-execute'
-            })
-            .registerItemDefinition('disable_responsive', {
-                text : 'Use checkbox to toggle me',
-                action : 'demo:clicked-when-enable',
-                disable : function( $source ) {
-
-                    return !$source.isActiveItem;
-                }
-            })
-            .registerItemDefinition('item1', {
-                text : 'Standard item 1',
-                action : 'demo:standard-action-1'
-            })
-            .registerItemDefinition('item2', {
-                text : 'Standard item 2',
-                action : 'demo:standard-action-3'
-            })
-            .registerItemDefinition('item3', {
-                text : 'Standard item 3',
-                action : 'demo:standard-action-3'
-            })
+            )
             .registerMenuDefinition('demo_menu1', {
-                path : 'card',
-                items : [
+                path: 'card',
+                items: [
                     'demo_like',
                     'demo_subscribe',
                     'demo_delete'
                 ]
             })
             .registerMenuDefinition('demo_menu2', {
-                items : [
+                items: [
                     'disable_fixed',
                     'disable_responsive',
                     'item1',
@@ -75,87 +76,92 @@ angular
 
             })
             .registerMenuDefinition('demo_menu4', {
-                items : [
+                items: [
                     'item1',
                     'item2',
                     'item3',
                     {
-                        text : 'Set type',
-                        menu : 'demo_menu3'
+                        text: 'Set type',
+                        menu: 'demo_menu3'
                     }
                 ]
 
             })
             .registerMenuDefinition('demo_menu3', {
-                itemSrc : 'types',
-                itemDef : {
-                    action : 'demo:set-type',
-                    text : function ($itemSource) { return $itemSource.name }
+                itemSrc: 'types',
+                itemDef: {
+                    action: 'demo:set-type',
+                    text: function ($itemSource) {
+                        return $itemSource.name
+                    },
+                    disable : function($itemSource) {
+                        return $itemSource.id % 2;
+                    }
                 },
-                actionHandler: function( $action, $source, $itemSource, $rootScope ) {
+                actionHandler: function ($action, $source, $itemSource, $rootScope) {
 
-                    $rootScope.$broadcast('menu-action','dynamic',$action, $itemSource);
+                    $rootScope.$broadcast('menu-action', 'dynamic', $action, $itemSource);
                 }
             })
-            .setDefaultActionHandlerFactory(function( $rootScope ) {
+            .setDefaultActionHandlerFactory(function ($rootScope) {
 
-                return function ( $action, $source ) {
+                return function ($action, $source) {
 
-                    $rootScope.$broadcast('menu-action','static',$action,$source);
+                    $rootScope.$broadcast('menu-action', 'static', $action, $source);
                 }
             });
     })
     .constant('types', [
-        { id : 1, name : 'Type 1'},
-        { id : 2, name : 'Type 2'},
-        { id : 3, name : 'Type 3'},
-        { id : 4, name : 'Type 4'},
-        { id : 5, name : 'Type 5'}
+        {id: 1, name: 'Type 1'},
+        {id: 2, name: 'Type 2'},
+        {id: 3, name: 'Type 3'},
+        {id: 4, name: 'Type 4'},
+        {id: 5, name: 'Type 5'}
     ])
-    .controller('DemoController', function( $scope ) {
+    .controller('DemoController', function ($scope) {
 
         $scope.cards = [
             {
-                name : 'jacek Placek',
-                liked : false,
-                subscribed : false
+                name: 'jacek Placek',
+                liked: false,
+                subscribed: false
             },
             {
-                name : 'Woczek O',
+                name: 'Woczek O',
                 liked: false,
-                subscribed : false
+                subscribed: false
             },
             {
-                name : 'Very busy skram majster',
+                name: 'Very busy skram majster',
                 liked: false,
-                subscribed : false
+                subscribed: false
             },
             {
-                name : 'Cosmic Luc',
+                name: 'Cosmic Luc',
                 liked: false,
-                subscribed : false
+                subscribed: false
             },
             {
-                name : 'Meat Ball',
+                name: 'Meat Ball',
                 liked: false,
-                subscribed : false
+                subscribed: false
             }
         ]
     })
-    .controller('MonitorController', function( $scope ) {
+    .controller('MonitorController', function ($scope) {
 
         $scope.monits = [];
 
-        $scope.$on('menu-action', function($event,type,$action,$source) {
+        $scope.$on('menu-action', function ($event, type, $action, $source) {
 
 
             if (type === 'static') {
 
-                $scope.monits.push({action:$action,source:$source.name});
+                $scope.monits.push({action: $action, source: $source.name});
 
-            } else if ( type == 'dynamic') {
+            } else if (type === 'dynamic') {
 
-                $scope.monits.push({action:$action,source:$source.name});
+                $scope.monits.push({action: $action, source: $source.name});
             }
         });
     });

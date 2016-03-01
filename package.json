@@ -1,0 +1,41 @@
+{
+  "name": "ng-angular-menu",
+  "version": "0.1.0",
+  "description": "Menu solution for angularjs",
+  "main": "index.js",
+  "dependencies": {
+    "grunt-contrib-cssmin": "~0.14.0",
+    "grunt": "~0.4.5",
+    "grunt-contrib-concat": "~1.0.0",
+    "grunt-contrib-uglify": "~0.11.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-clean": "~1.0.0",
+    "grunt-contrib-copy": "~0.8.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jatzek/ng-angular-menu.git"
+  },
+  "keywords": [
+    "angular",
+    "module",
+    "js",
+    "menu",
+    "submenu",
+    "contextmenu",
+    "inlinemenu",
+    "menu-creator",
+    "menu-builder",
+    "menu-item",
+    "dynamic-menu"
+  ],
+  "author": "Jacek Chudzinski <chudzinskijacek@gmail.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/jatzek/ng-angular-menu/issues"
+  }
+}

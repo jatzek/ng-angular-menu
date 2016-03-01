@@ -5,6 +5,8 @@
 angular
     .module('netgenes.ng-angular-menu')
     .provider('menuBuilder', function MenuBuilderProvider() {
+
+
         var self = this;
         var items = {};
         var menus = {};
@@ -167,10 +169,11 @@ angular
 
         this.addItems = function (items) {
 
-            items.forEach( function( item, id ) {
+            angular.forEach( items, function( item, id ) {
 
-                self.registerItemDefinition(id,item);
+                self.registerItemDefinition( id, item );
             });
+            return this;
         };
 
         this.setDefaultActionHandlerFactory = function (actionHandlerFactory) {
