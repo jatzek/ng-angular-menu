@@ -9,6 +9,13 @@ angular.module('app',['netgenes.ng-angular-menu'])
     .config( function ( menuBuilderProvider ) {  
         
         menuBuilderProvider
+            .setDefaultActionHandlerFactory(function actionHandlerFactory(anyRegisteredService1,anyRegisteredService1) {
+                
+                return function actionHandler( $action, $source, $scope, $itemSourec) {
+                    //some logic
+                    console.log(...arguments);
+                }
+            })
             .addItems({
                 //static item
                 item1 : {
@@ -79,6 +86,14 @@ when you have definitions you can use these in templates
 <button ng-init"menuName = 'menu3'" popup-menu="menuName"> Show menu 3</button>
 
 ```
+## menuBuilderProvider
+### Methods
+- setDefaultActionHandlerFactory( factory : actionHandlerFactory(anyService):actionFactory ) : menuBuilderProvider
+- setDefaultItemsProvider( serviceName : string ): menuBuilderProvider // service must have 'get' method default is angular's $injector
+- registerMenuDefinition( menuName : string, menuDefinition: object ): menuBuilderProvider
+- registerItemDefinition( itemName : string, itemDefinition: object ): menuBuilderProvider
+- addItems( definitionsMap : object ): menuBuilderProvider { keyIsItemName : valueIsDefinition } 
+
 ### Item options
 - text : string or function():string.
 - action : string or function():string.
