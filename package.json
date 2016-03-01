@@ -1,6 +1,6 @@
 {
   "name": "ng-angular-menu",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Menu solution for angularjs",
   "main": "index.js",
   "dependencies": {
