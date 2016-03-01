@@ -14,6 +14,7 @@ angular
             return angular.noop;
         };
         var defaultActionHandler;
+        var defaultItemsProvider;
 
         var defaultItemDefinition = {
 
@@ -109,7 +110,7 @@ angular
                     }
                     else if (def.itemSrc && def.itemDef) {
 
-                        var itemSrc = $injector.get(def.itemSrc);
+                        var itemSrc = defaultItemsProvider.get( def.itemSrc );
                         self.items = itemSrc.map(function (src) {
 
                             return new Item($scope, def.itemDef, self, src);
@@ -182,9 +183,22 @@ angular
             return this;
         };
 
+        this.setDefaultItemsProvider = function( itemsProviderName ) {
+
+            defaultItemsProvider = itemsProviderName;
+            return this;
+        };
+
         this.$get = function menuBuilderFactory($injector) {
 
             defaultActionHandler = $injector.invoke(defaultActionHandlerFactory);
+
+            if (typeof defaultItemsProvider === 'undefined') {
+                defaultItemsProvider = $injector;
+            } else {
+                defaultItemsProvider = $injector.get(defaultItemsProvider);
+            }
+
             return new MenuBuilder($injector);
         };
     })
