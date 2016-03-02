@@ -53,7 +53,8 @@ module.exports = function(grunt) {
                 updateConfigs : ['pkg'],
                 commitFiles: ['-a'],
                 tagName : '%VERSION%',
-                push: 'tag'
+                push: 'tag',
+                pushTo: 'origin'
             }
         }
     });
