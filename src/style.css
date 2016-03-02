@@ -67,3 +67,19 @@ li.submenu:hover ul {
     top: 0;
     left: 98%;
 }
+li.submenu.disable:hover ul {
+    display: none;
+}
+
+.submenu-mark {
+    position: relative;
+}
+.submenu-mark span {
+    display: block;
+    width: 0;
+    height: 0;
+    border: transparent 6px solid;
+    border-left-color: #666;
+    position: absolute;
+    top: calc(50% - 3px);
+}

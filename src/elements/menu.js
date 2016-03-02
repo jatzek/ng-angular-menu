@@ -12,7 +12,7 @@ angular
             '   <li ng-class="{ disable : item.disable, submenu: item.menu }" ng-repeat="item in $menu.items track by $index" ng-click="item.onClick($event)">' +
             '       <div class="icon"></div>' +
             '       <div class="text">{{ item.text }}</div>' +
-            '       <div class="submenu-mark"><span ng-if="item.menu">&gt;</span></div>' +
+            '       <div class="submenu-mark"><span ng-if="item.menu"></span></div>' +
             '       <ng-menu ng-if="item.menu" src="item.menu" />' +
             '   </li>' +
             '</ul>',
