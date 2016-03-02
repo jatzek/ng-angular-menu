@@ -46,6 +46,15 @@ module.exports = function(grunt) {
                     'dist/<%= pkg.name %>.min.css' : ['src/style.css']
                 }
             }
+        },
+        bump : {
+            options : {
+                files : ['package.json', 'bower.json'],
+                updateConfigs : ['pkg'],
+                commitFiles: ['-a'],
+                tagName : '%VERSION%',
+                push: 'tag'
+            }
         }
     });
 
@@ -54,8 +63,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-bump');
 
 
     grunt.registerTask('release', ['concat:release','copy:release','uglify:release','cssmin:release','clean:release']);
 
+    grunt.registerTask('r_patch',['bump:patch']);
 }
