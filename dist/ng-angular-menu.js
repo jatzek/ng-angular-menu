@@ -92,6 +92,11 @@ angular.module('netgenes.ng-angular-menu')
                         initialPosition.top = initialPosition.top - menuRect.height;
                     }
 
+                    if ( menuRect.right > documentWidth ) {
+
+                        initialPosition.left = initialPosition.left - menuRect.width;
+                    }
+
                     var position = Object.assign({},initialPosition);
                     position.left += 'px';
                     position.top += 'px';
