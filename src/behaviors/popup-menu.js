@@ -3,7 +3,7 @@
  */
 angular
     .module('netgenes.ng-angular-menu')
-    .directive('popupMenu', function (menuBuilder, $injector, $compile, triggeredMenuLinker) {
+    .directive('popupMenu', function (menuBuilder, $injector, $compile, $timeout, triggeredMenuLinker) {
 
         return {
             restrict: 'A',
@@ -24,11 +24,11 @@ angular
                 style = {
                     position: 'fixed'
                 };
-                style[h] = rect.left + 'px';
-                style[v] = rect.top + 'px';
+                style[h] = rect.left;
+                style[v] = rect.top;
 
                 return style;
 
-            })(menuBuilder, $injector, $compile)
+            })(menuBuilder, $injector, $compile, $timeout)
         }
     });

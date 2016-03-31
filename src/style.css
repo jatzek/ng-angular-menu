@@ -9,6 +9,7 @@
     list-style: none;
     width:auto;
     min-width: 200px;
+    width: auto;
     max-width: 30vw;
     background-color: white;
     box-shadow: rgba(0,0,0,0.3) 0 0 3px;

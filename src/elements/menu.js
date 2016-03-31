@@ -8,7 +8,7 @@ angular
             replace : true,
             restrict : 'E',
             template :
-            '<ul class="ng-menu">' +
+            '<ul class="ng-menu" style="visibility: hidden">' +
             '   <li ng-class="{ disable : item.disable, submenu: item.menu }" ng-repeat="item in $menu.items track by $index" ng-click="item.onClick($event)">' +
             '       <div class="icon"></div>' +
             '       <div class="text">{{ item.text }}</div>' +
@@ -20,7 +20,6 @@ angular
             },
             link : function($scope, $element, $attributes) {
 
-
                 $scope.$applyAsync(function () {
 
                     if ($attributes.src) {
@@ -31,17 +30,14 @@ angular
 
                         $scope.$menu = $scope.$parent.menu;
                     }
+                });
 
-                    $timeout(function() {
-                        //console.log($element[0].getBoundingClientRect());
-                    });
+                $scope.$watch('$menu.active', function( n ) {
 
-                    $scope.$watch('$menu.active', function( n ) {
+                    if (n === false) {
 
-                        if (n === false) {
-                            $element.remove();
-                        }
-                    })
+                        $element.remove();
+                    }
                 });
             }
         }

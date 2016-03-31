@@ -3,7 +3,7 @@
  */
 angular
     .module('netgenes.ng-angular-menu')
-    .directive('contextMenu', function (menuBuilder, $injector, $compile, triggeredMenuLinker) {
+    .directive('contextMenu', function (menuBuilder, $injector, $compile,$timeout, triggeredMenuLinker) {
         return {
             restrict: 'A',
             link: triggeredMenuLinker('contextMenu', 'contextmenu', function positionBuilder($event) {
@@ -13,10 +13,10 @@ angular
 
                 return {
 
-                    position: 'absolute',
-                    top: top + 'px',
-                    left: left + 'px'
+                    position: 'fixed',
+                    top: top,
+                    left: left
                 };
-            })(menuBuilder, $injector, $compile)
+            })(menuBuilder, $injector, $compile, $timeout)
         }
     });
