@@ -29,6 +29,6 @@ angular
 
                 return style;
 
-            })(menuBuilder, $injector, $compile, $timeout)
+            })( menuBuilder, $injector, $compile, $timeout )
         }
     });

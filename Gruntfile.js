@@ -69,5 +69,5 @@ module.exports = function(grunt) {
 
     grunt.registerTask('release', ['concat:release','copy:release','uglify:release','cssmin:release','clean:release']);
 
-    grunt.registerTask('r_patch',['bump:patch']);
+    grunt.registerTask('r_patch',['release','bump:patch']);
 }
