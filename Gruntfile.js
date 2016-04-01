@@ -40,6 +40,16 @@ module.exports = function(grunt) {
                 src : '.tmp'
             }
         },
+        sass : {
+            style : {
+                options: {
+                    style : 'expanded'
+                },
+                files : {
+                    'src/style.css' : 'src/scss/style.scss'
+                }
+            }
+        },
         cssmin : {
             release : {
                 files : {
@@ -64,10 +74,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-bump');
 
 
-    grunt.registerTask('release', ['concat:release','copy:release','uglify:release','cssmin:release','clean:release']);
+    grunt.registerTask('release', ['sass','concat:release','copy:release','uglify:release','cssmin:release','clean:release']);
 
     grunt.registerTask('r_patch',['release','bump:patch']);
 }

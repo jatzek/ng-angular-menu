@@ -33,7 +33,7 @@ angular.module('netgenes.ng-angular-menu')
 
                 angular.forEach( menu.items, function(item) {
 
-                    ls.push(ctx.measureText(item.text).width);
+                    ls.push( ctx.measureText(item.text).width );
                 });
 
                 return Math.ceil( Math.max.apply(Math,ls) );

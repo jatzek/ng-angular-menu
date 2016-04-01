@@ -1,0 +1,28 @@
+//menu variables
+$ng-menu-padding: 8px 0;
+$ng-menu-font: sans-serif;
+$ng-menu-box-shadow: rgba(0,0,0,0.3) 0 0 3px;
+$ng-menu-min-width: 200px;
+$ng-menu-max-width: 30vw;
+$ng-menu-background: white;
+$ng-menu-color: black;
+
+//item variables
+$ng-menu-item-padding: 0 16px;
+$ng-menu-item-margin: 0;
+$ng-menu-item-line-height: 48px;
+$ng-menu-item-border-bottom: 1px solid rgba(0,0,0,0.1);
+$ng-menu-item-hover-background: #ddd;
+$ng-menu-item-hover-color: inherit;
+$ng-menu-item-active-background: #ccc;
+$ng-menu-item-active-color: inherit;
+$ng-menu-item-disable-color: #666;
+
+//item members variables
+$ng-menu-item-members-spacing: 8px;
+$ng-menu-item-icon-width: 32px;
+$ng-menu-item-submenu-mark-width: 16px;
+
+$ng-menu-item-submenu-mark-arrow-color: #666;
+$ng-menu-item-submenu-mark-arrow-size: 6px;
+$ng-menu-h-arrow-half: $ng-menu-item-submenu-mark-arrow-size / 2;

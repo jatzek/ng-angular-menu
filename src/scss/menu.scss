@@ -1,0 +1,96 @@
+.menu-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left : 0;
+  right: 0;
+}
+.ng-menu {
+  visibility: hidden;
+  list-style: none;
+  width:auto;
+  min-width: $ng-menu-min-width;
+  max-width: $ng-menu-max-width;
+  background-color: $ng-menu-background;
+  box-shadow: $ng-menu-box-shadow;
+  padding: $ng-menu-padding;
+  display: inline-block;
+  font-family: $ng-menu-font;
+}
+.ng-menu-item {
+
+  line-height: $ng-menu-item-line-height;
+  margin: $ng-menu-item-margin;
+  padding:$ng-menu-item-padding;
+  border-bottom: $ng-menu-item-border-bottom;
+  cursor : pointer;
+  display:flex;
+
+  &:hover {
+    color: $ng-menu-item-hover-color;
+    background-color: $ng-menu-item-hover-background;
+  }
+  &:active {
+    color: $ng-menu-item-active-color;
+    background-color: $ng-menu-item-active-background;
+  }
+  &:last-child {
+
+    border: none;
+  }
+
+  &.disable,
+  &.disable:hover,
+  &.disable:active {
+
+    background-color: $ng-menu-background;
+    cursor: default;
+    color: $ng-menu-item-disable-color;
+  }
+
+  //item members
+  .icon {
+    flex-basis : $ng-menu-item-icon-width;
+    margin-right: $ng-menu-item-members-spacing;
+  }
+  .submenu-mark {
+
+    flex-basis: $ng-menu-item-submenu-mark-width;
+    margin-left: $ng-menu-item-members-spacing;
+    position: relative;
+    //arrow
+    span {
+      display: block;
+      width: 0;
+      height: 0;
+      border: transparent $ng-menu-item-submenu-mark-arrow-size solid;
+      border-left-color: $ng-menu-item-submenu-mark-arrow-color;
+      position: absolute;
+      top: calc(50% - #{$ng-menu-h-arrow-half});
+    }
+  }
+  .text {
+
+    flex: 1;
+  }
+
+  // submenu
+  &.submenu {
+
+    position: relative;
+
+    ul {
+      visibility: visible;
+      display:none;
+    }
+    &:hover ul {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 98%;
+    }
+    &.disable:hover ul {
+      display: none;
+    }
+  }
+}
