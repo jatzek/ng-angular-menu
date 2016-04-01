@@ -21,6 +21,7 @@
 
 .ng-menu-item {
   line-height: 48px;
+  font-size: inherit;
   margin: 0;
   padding: 0 16px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
