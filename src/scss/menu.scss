@@ -84,6 +84,7 @@
     ul {
       visibility: visible;
       display:none;
+      z-index: 100000;
     }
     &:hover ul {
       display: inline-block;

@@ -282,7 +282,6 @@ angular
                 if (def.menu) {
 
                     this.menu = new Menu( $scope, getMenuDefinition(def.menu));
-                    console.log(this.menu);
                 }
 
 

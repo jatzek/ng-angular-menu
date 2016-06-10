@@ -72,6 +72,7 @@
 .ng-menu-item.submenu ul {
   visibility: visible;
   display: none;
+  z-index: 100000;
 }
 .ng-menu-item.submenu:hover ul {
   display: inline-block;
