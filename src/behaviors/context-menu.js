@@ -17,6 +17,6 @@ angular
                     top: top,
                     left: left
                 };
-            })(menuBuilder, $injector, $compile, $timeout)
+            })( menuBuilder, $injector, $compile, $timeout )
         }
     });

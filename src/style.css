@@ -70,18 +70,18 @@
   position: relative;
 }
 .ng-menu-item.submenu ul {
-  visibility: visible;
-  display: none;
+  display: inline-block;
+  position: absolute;
+  visibility: hidden;
   z-index: 100000;
 }
 .ng-menu-item.submenu:hover ul {
-  display: inline-block;
-  position: absolute;
+  visibility: visible;
   top: 0;
   left: 98%;
 }
 .ng-menu-item.submenu.disable:hover ul {
-  display: none;
+  visibility: hidden;
 }
 
 /*# sourceMappingURL=style.css.map */

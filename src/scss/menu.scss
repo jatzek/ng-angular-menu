@@ -82,18 +82,19 @@
     position: relative;
 
     ul {
-      visibility: visible;
-      display:none;
+      display: inline-block;
+      position: absolute;
+      visibility: hidden;
       z-index: 100000;
     }
     &:hover ul {
-      display: inline-block;
-      position: absolute;
+      visibility: visible;
+
       top: 0;
       left: 98%;
     }
     &.disable:hover ul {
-      display: none;
+      visibility: hidden;
     }
   }
 }

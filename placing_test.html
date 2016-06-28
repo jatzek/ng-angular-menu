@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="test">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="src/style.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+        #viewport {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="viewport" context-menu="'test_menu'">
+
+</div>
+
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="src/module.js"></script>
+<script src="src/behaviors/context-menu.js"></script>
+<script src="src/behaviors/popup-menu.js"></script>
+<script src="src/elements/backdrop.js"></script>
+<script src="src/behaviors/common.js"></script>
+<script src="src/elements/inline-menu.js"></script>
+<script src="src/elements/menu.js"></script>
+<script src="src/providers/menu-builder.js"></script>
+<script src="src/behaviors/position-adjuster.js"></script>
+
+<script src="placing_test.js"></script>
+</body>
+</html>
