@@ -40,7 +40,7 @@ angular.module('netgenes.ng-angular-menu')
                     if ( subRect.bottom > vh ) {
 
                         sh = subRect.bottom - vh;
-                        subMenu.style.top = '-' +sh +'px';
+                        subMenu.style.top = '-' + sh +'px';
                     }
                 };
 
