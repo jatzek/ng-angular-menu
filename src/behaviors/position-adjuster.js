@@ -10,7 +10,7 @@ angular.module('netgenes.ng-angular-menu')
             restrict: 'A',
             link : function ( $scope, $element ) {
 
-                var adjusted, adjust, vw, vh, sw, sh;
+                var adjusted, adjust, vw, vh, sw, sh, styles;
 
                 vw = document.body.offsetWidth;
                 vh = document.body.offsetHeight;
@@ -21,23 +21,27 @@ angular.module('netgenes.ng-angular-menu')
 
                 adjust = function () {
 
-                    if ( adjusted )
-                        return;
+                    if ( adjusted ) {
 
+                        return;
+                    }
 
                     var subMenu = $element[0].querySelector('ul');
-                    var subRect = subMenu.getBoundingClientRect();
+
+                    styles = document.defaultView.getComputedStyle( subMenu );
+
+                    var subRect = subMenu.getBoundingClientRect( );
 
                     if ( subRect.right > vw ) {
 
-                         console.log('move to left');
+                        subMenu.style.left =  '-' + styles.left;
                     }
 
                     if ( subRect.bottom > vh ) {
 
-                        console.log('shift to top');
+                        sh = subRect.bottom - vh;
+                        subMenu.style.top = '-' +sh +'px';
                     }
-
                 };
 
                 $element.bind('mouseenter', adjust );
