@@ -122,7 +122,7 @@ angular
                     top: top,
                     left: left
                 };
-            })(menuBuilder, $injector, $compile, $timeout)
+            })( menuBuilder, $injector, $compile, $timeout )
         }
     });
 angular
@@ -156,6 +156,53 @@ angular
             })( menuBuilder, $injector, $compile, $timeout )
         }
     });
+angular.module('netgenes.ng-angular-menu')
+    .directive('positionAdjuster', function () {
+
+        return {
+
+            restrict: 'A',
+            link : function ( $scope, $element ) {
+
+                var adjusted, adjust, vw, vh, sw, sh, styles;
+
+                vw = document.body.offsetWidth;
+                vh = document.body.offsetHeight;
+
+
+                if ( ! $scope.item.menu )
+                    return;
+
+                adjust = function () {
+
+                    if ( adjusted ) {
+
+                        return;
+                    }
+
+                    var subMenu = $element[0].querySelector('ul');
+
+                    styles = document.defaultView.getComputedStyle( subMenu );
+
+                    var subRect = subMenu.getBoundingClientRect( );
+
+                    if ( subRect.right > vw ) {
+
+                        subMenu.style.left =  '-' + styles.left;
+                    }
+
+                    if ( subRect.bottom > vh ) {
+
+                        sh = subRect.bottom - vh;
+                        subMenu.style.top = '-' + sh +'px';
+                    }
+                };
+
+                $element.bind('mouseenter', adjust );
+
+            }
+        };
+    });
 angular
     .module('netgenes.ng-angular-menu')
     .directive('menuBackdrop', function() {
@@ -183,13 +230,13 @@ angular
     });
 angular
     .module('netgenes.ng-angular-menu')
-    .directive('ngMenu', function($timeout) {
+    .directive('ngMenu', function( $timeout ) {
         return {
             replace : true,
             restrict : 'E',
             template :
             '<ul class="ng-menu">' +
-            '   <li class="ng-menu-item" ng-class="{ disable : item.disable, submenu: item.menu }" ng-repeat="item in $menu.items track by $index" ng-click="item.onClick($event)">' +
+            '   <li position-adjuster class="ng-menu-item" ng-class="{ disable : item.disable, submenu: item.menu }" ng-repeat="item in $menu.items track by $index" ng-click="item.onClick($event)">' +
             '       <div class="icon"></div>' +
             '       <div class="text">{{ item.text }}</div>' +
             '       <div class="submenu-mark"><span ng-if="item.menu"></span></div>' +
@@ -220,7 +267,7 @@ angular
                     }
                 });
             }
-        }
+        };
     });
 angular
     .module('netgenes.ng-angular-menu')
