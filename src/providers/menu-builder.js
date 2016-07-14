@@ -155,6 +155,22 @@ angular
             return this;
         };
 
+        this.addItemToMenu = function( menuName, itemName ) {
+
+            if ( !menus[ menuName ] ) {
+                throw new Error('MenuBuilder Error! Menu `' + name + '` had not registered',
+                    'menu_builder_error:menu_does_not_exists');
+            }
+
+            if ( !items[ itemName ] ) {
+                throw new Error('MenuBuilder Error! Menu `' + name + '` had not registered',
+                    'menu_builder_error:menu_does_not_exists');
+            }
+
+            menus[ menuName ].items.push( itemName );
+            return this;
+        };
+
         this.registerItemDefinition = function (name, definition) {
 
             if (items[name]) {

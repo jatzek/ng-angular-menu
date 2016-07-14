@@ -54,6 +54,9 @@ angular
                     item3 :  {
                         text: 'Standard item 3',
                         action: 'demo:standard-action-3'
+                    },
+                    itemForAdd : {
+                        text: 'Item Added To Menu'
                     }
                 }
             )
@@ -109,7 +112,9 @@ angular
 
                     $rootScope.$broadcast('menu-action', 'static', $action, $source);
                 }
-            });
+            })
+            .addItemToMenu('demo_menu4', 'itemForAdd');
+        
     })
     .constant('types', [
         {id: 1, name: 'Type 1'},
