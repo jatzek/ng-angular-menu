@@ -2,7 +2,7 @@
   "name": "ng-angular-menu",
   "version": "0.2.15",
   "description": "Menu solution for angularjs",
-  "main": "index.js",
+  "main": "dist/ng-angular-menu.js",
   "devDependencies": {
     "grunt-contrib-clean": "~1.0.0",
     "grunt-contrib-copy": "~0.8.2",
